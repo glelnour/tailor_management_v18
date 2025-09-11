@@ -121,41 +121,41 @@
     </div>
 
     <!-- Sale Order Amount -->
-    <div class="col-12 col-md-6 col-lg-3">
+    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onSaleOrders">
       <div class="oh-card"
            style="background-color: #10a9e8; border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
-        <div class="oh-card-body text-center">
-          <div class="stat-widget-one">
-            <div class="stat-icon"
-                 style="background:#10a9e8; border-radius: 50%; padding: 15px; margin-bottom: 10px;">
-              <i class="fa fa-money" style="font-size: 36px; color: white;"></i>
+            <div class="oh-card-body text-center">
+              <div class="stat-widget-one">
+                <div class="stat-icon"
+                     style="background:#10a9e8; border-radius: 50%; padding: 15px; margin-bottom: 10px;">
+                  <i class="fa fa-money" style="font-size: 36px; color: white;"></i>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-head"><t t-esc="state.sale_order_amount"/></div>
+                  <div class="stat_count">Sale Order Amount</div>
+                </div>
+              </div>
             </div>
-            <div class="stat-content">
-              <div class="stat-head"><t t-esc="state.sale_order_amount"/></div>
-              <div class="stat_count">Sale Order Amount</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
     <!-- Invoice Amount -->
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="oh-card"
-           style="background-color: rgb(67, 238, 172); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
-        <div class="oh-card-body text-center">
-          <div class="stat-widget-one">
-            <div class="stat-icon"
-                 style="background:rgb(67, 238, 172); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
-              <i class="fa fa-money" style="font-size: 36px; color: white;"></i>
-            </div>
-            <div class="stat-content">
-              <div class="stat-head"><t t-esc="state.account_move_amount"/></div>
-              <div class="stat_count">Invoice Amount</div>
-            </div>
+    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onInvoices">
+          <div class="oh-card"
+               style="background-color: rgb(67, 238, 172); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
+                <div class="oh-card-body text-center">
+                  <div class="stat-widget-one">
+                    <div class="stat-icon"
+                         style="background:rgb(67, 238, 172); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
+                      <i class="fa fa-money" style="font-size: 36px; color: white;"></i>
+                    </div>
+                    <div class="stat-content">
+                      <div class="stat-head"><t t-esc="state.account_move_amount"/></div>
+                      <div class="stat_count">Invoice Amount</div>
+                    </div>
+                  </div>
+                </div>
           </div>
-        </div>
-      </div>
     </div>
 
     <!-- Not Delivered -->
