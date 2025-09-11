@@ -24,14 +24,14 @@
                             <div class="mr-3">
                                 <label class="font-weight-bold">From Date:</label>
                                 <input type="date" class="form-control"
-                                       t-att-value="props.from_date"
+                                       t-att-value="state.from_date"
                                        data-field="from_date"
                                        t-on-change="onDateChange"/>
                             </div>
                             <div>
                                 <label class="font-weight-bold">To Date:</label>
                                 <input type="date" class="form-control"
-                                       t-att-value="props.to_date"
+                                       t-att-value="state.to_date"
                                        data-field="to_date"
                                        t-on-change="onDateChange"/>
                             </div>
