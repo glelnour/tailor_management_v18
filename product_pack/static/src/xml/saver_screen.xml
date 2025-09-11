@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="product_pack.SaverScreen" t-inherit="point_of_sale.SaverScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('login-overlay','fixed-top','w-100','h-100','p-4','d-flex','flex-column')]/div[2]/img" position="replace">
+            <img t-att-height="env.isSmall ? 40 : 182" src="/product_pack/static/description/logo.png" alt="Logo"/>
+        </xpath>
+    </t>
+</templates>

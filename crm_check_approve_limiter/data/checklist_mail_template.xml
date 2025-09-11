@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="check_list_mail_template" model="mail.template">
+            <field name="name">Check List : Reminder</field>
+            <field name="model_id" ref="crm_check_approve_limiter.model_crm_lead_check_history"/>
+            <field name="subject">Check List Request</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear <t t-out="object.user_id.name"/>,
+                        <br/>
+                        You have a new check list reminder regarding the task <t t-out="object.check_item.check_task"/>.
+                        <br/>
+                        <br/>
+                        Request Description:
+                        <br/>
+                        Please review the check list and take the necessary action.
+                        <br/>
+                        <br/>
+                        You can access the check list directly through the following link:
+                        <a t-attf-href="/web#id={{ object.lead_id.id }}&amp;view_type=form&amp;model=crm.lead"
+                            style="background-color:#875a7b; padding:8px 16px 8px 16px; colr:#fff; border-radius:5px;Payment target=_blank">
+                            View check list
+
+                        </a>
+                        <br/>
+                        <br/>
+                        Best regards,
+                        <br/>
+                        <t t-out="request.env.company.name"></t>
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

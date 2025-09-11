@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_stage_checklist,crm.stage,model_stage_check_list,base.group_user,1,1,1,1
+access_crm_stage_check_list_manager,crm.stage,model_stage_check_list,base.group_user,1,1,1,1
+access_crm_lead_check_history,crm.lead.check.history,model_crm_lead_check_history,base.group_user,1,1,1,1
+access_crm_lead_check_history_manager,crm.lead.check.history,model_crm_lead_check_history,base.group_user,1,1,1,1
+

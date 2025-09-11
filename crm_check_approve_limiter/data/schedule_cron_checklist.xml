@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    cron action for notification to complete check list after deadline-->
+    <record id="ir_cron_check_check_list" model="ir.cron">
+        <field name="name">Check the check list</field>
+        <field name="model_id" ref="model_crm_lead_check_history"/>
+        <field name="state">code</field>
+        <field name="code">model._check_checklist()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+<!--&lt;!&ndash;        <field name="numbercall">-1</field>&ndash;&gt;-->
+<!--        <field name="doall" eval="False"/>-->
+    </record>
+</odoo>

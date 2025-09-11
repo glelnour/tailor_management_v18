@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="partner_view_tailor" model="ir.ui.view">
+            <field name="name">partner.view.tailor</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="is_vip_customer"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='sales_purchases']/group/group[@name='purchase']"
+                       position="inside">
+                    <field name="customer"/>
+                    <field name="vendor"/>
+                    <field name="owner"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Measurements" name="measurements">
+                        <group>
+                            <group>
+                                <field name="bust_cup_size"/>
+                                <field name="neck"/>
+                                <field name="accross_front"/>
+                                <field name="bust_fullest_part"/>
+                                <field name="under_bust"/>
+                                <field name="waist_cric"/>
+                                <field name="hp_cric"/>
+                                <field name="thigh_cric"/>
+                                <field name="upper_arm_cric"/>
+                                <field name="total_length"/>
+
+                            </group>
+                            <group>
+                                <field name="elbow_cric"/>
+                                <field name="wrist_cric"/>
+                                <field name="shoulder_to_waist"/>
+                                <field name="shoulder_to_floor"/>
+                                <field name="shoulder_to_shoulder"/>
+                                <field name="back_neck_to_waist"/>
+                                <field name="across_back"/>
+                                <field name="inner_arm_length"/>
+                                <field name="ankle"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']/form//group[1]" position="after">
+                    <notebook>
+                        <page string="Measurements" name="measurements">
+                            <group>
+                                <group>
+                                    <field name="bust_cup_size"/>
+                                    <field name="neck"/>
+                                    <field name="accross_front"/>
+                                    <field name="bust_fullest_part"/>
+                                    <field name="under_bust"/>
+                                    <field name="waist_cric"/>
+                                    <field name="hp_cric"/>
+                                    <field name="thigh_cric"/>
+                                    <field name="upper_arm_cric"/>
+                                    <field name="total_length"/>
+
+                                </group>
+                                <group>
+                                    <field name="elbow_cric"/>
+                                    <field name="wrist_cric"/>
+                                    <field name="shoulder_to_waist"/>
+                                    <field name="shoulder_to_floor"/>
+                                    <field name="shoulder_to_shoulder"/>
+                                    <field name="back_neck_to_waist"/>
+                                    <field name="across_back"/>
+                                    <field name="inner_arm_length"/>
+                                    <field name="ankle"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <!--        to update contact menu-->
+        <!--        owners-->
+
+        <record id="action_contacts_owner" model="ir.actions.act_window">
+            <field name="name">Owners</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="context">{'default_is_company': True}</field>
+            <field name="domain">[('owner','=', True)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Contact in your address book
+                </p>
+                <p>
+                    Odoo helps you track all activities related to your contacts.
+                </p>
+            </field>
+        </record>
+        <record id="action_contacts_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="action_contacts_owner"/>
+        </record>
+        <record id="action_contacts_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+            <field name="act_window_id" ref="action_contacts_owner"/>
+        </record>
+        <record id="action_contacts_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_partner_form"/>
+            <field name="act_window_id" ref="action_contacts_owner"/>
+        </record>
+        <!--        customers-->
+        <record id="contacts.action_contacts" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="context">{'default_is_company': True}</field>
+            <field name="domain">['|',('customer','=', True),('customer_rank','>', 0)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Contact in your address book
+                </p>
+                <p>
+                    Odoo helps you track all activities related to your contacts.
+                </p>
+            </field>
+        </record>
+        <record id="contacts.action_contacts_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="contacts.action_contacts"/>
+        </record>
+        <record id="contacts.action_contacts_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+            <field name="act_window_id" ref="contacts.action_contacts"/>
+        </record>
+        <record id="contacts.action_contacts_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_partner_form"/>
+            <field name="act_window_id" ref="contacts.action_contacts"/>
+        </record>
+        <!--        partners-->
+        <record id="action_contacts_partners" model="ir.actions.act_window">
+            <field name="name">Vendors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="context">{'default_is_company': True}</field>
+            <field name="domain">['|',('vendor','=', True),('supplier_rank','>', 0)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Contact in your address book
+                </p>
+                <p>
+                    Odoo helps you track all activities related to your contacts.
+                </p>
+            </field>
+        </record>
+        <record id="action_contacts_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="action_contacts_partners"/>
+        </record>
+        <record id="action_contacts_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+            <field name="act_window_id" ref="action_contacts_partners"/>
+        </record>
+        <record id="action_contacts_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_partner_form"/>
+            <field name="act_window_id" ref="action_contacts_partners"/>
+        </record>
+        <!--        employees-->
+        <record id="action_contacts_employees" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="context">{'default_is_company': True}</field>
+            <field name="domain">[('employee_ids','!=', False)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Contact in your address book
+                </p>
+                <p>
+                    Odoo helps you track all activities related to your contacts.
+                </p>
+            </field>
+        </record>
+        <record id="action_contacts_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="action_contacts_employees"/>
+        </record>
+        <record id="action_contacts_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+            <field name="act_window_id" ref="action_contacts_employees"/>
+        </record>
+        <record id="action_contacts_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_partner_form"/>
+            <field name="act_window_id" ref="action_contacts_employees"/>
+        </record>
+        <!--        all contacts-->
+        <record id="action_contacts_all_contacts" model="ir.actions.act_window">
+            <field name="name">All Contacts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="context">{'default_is_company': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Contact in your address book
+                </p>
+                <p>
+                    Odoo helps you track all activities related to your contacts.
+                </p>
+            </field>
+        </record>
+        <record id="action_contacts_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="action_contacts_all_contacts"/>
+        </record>
+        <record id="action_contacts_view_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="base.view_partner_tree"/>
+            <field name="act_window_id" ref="action_contacts_all_contacts"/>
+        </record>
+        <record id="action_contacts_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_partner_form"/>
+            <field name="act_window_id" ref="action_contacts_all_contacts"/>
+        </record>
+
+        <menuitem id="contacts.res_partner_menu_contacts"
+                  name="All Contacts"
+                  parent="contacts.menu_contacts"
+                  sequence="5"
+                  action="action_contacts_all_contacts"/>
+
+        <menuitem id="contacts.res_partner_menu_config"
+                  name="Configuration"
+                  parent="contacts.menu_contacts"
+                  groups="base.group_system"
+                  sequence="6"/>
+
+        <menuitem id="res_partner_menu_contacts_customers" name="Customers" sequence="1"
+                  action="contacts.action_contacts" parent="contacts.menu_contacts"/>
+        <menuitem id="res_partner_menu_contacts_owner" name="Owners" sequence="3"
+                  action="action_contacts_owner"
+                  parent="contacts.menu_contacts"/>
+        <menuitem id="res_partner_menu_contacts_partners" name="Vendors" sequence="2"
+                  action="action_contacts_partners" parent="contacts.menu_contacts"/>
+        <menuitem id="res_partner_menu_contacts_employees" name="Employees" sequence="4"
+                  action="action_contacts_employees"
+                  parent="contacts.menu_contacts"/>
+    </data>
+</odoo>

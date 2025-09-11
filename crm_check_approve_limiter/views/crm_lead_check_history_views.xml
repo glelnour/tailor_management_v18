@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--   crm lead check history form view-->
+    <record id="crm_lead_check_history_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.check.history.view.form</field>
+        <field name="model">crm.lead.check.history</field>
+        <field name="arch" type="xml">
+            <form string="Check List">
+                <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="check_item"/>
+                        <field name="lead_id"/>
+                        <field name="stage_id"/>
+                        <field name="list_action"/>
+                        <field name="user_id" string="Assign to"/>
+                        <field name="is_admin" invisible="1"/>
+<!--                        <field name="deadline_date" attrs="{'readonly': [('is_admin', '!=', True)]}"/>-->
+                        <field name="deadline_date" readonly="not is_admin"/>
+                        <field name="link"/>
+                        <field name="change_date" invisible="1"/>
+                        <field name="completed_date"/>
+                        <field name="done"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    Check list lines list view-->
+    <record id="crm_lead_check_history_view_list" model="ir.ui.view">
+        <field name="name">crm.lead.check.history.view.list</field>
+        <field name="model">crm.lead.check.history</field>
+        <field name="arch" type="xml">
+            <list decoration-warning="deadline_days &lt; 3" decoration-danger="deadline_days &gt;= 3" decoration-muted="deadline_days == 0" string="Check List">
+                <field name="partner_id"/>
+                <field name="check_item"/>
+                <field name="stage_id"/>
+                <field name="list_action"/>
+                <field name="user_id" string="Assign to"/>
+                <field name="is_admin" invisible="1"/>
+<!--                <field name="deadline_date" attrs="{'readonly': [('is_admin', '!=', True)]}"/>-->
+                <field name="deadline_date" readonly="not is_admin"/>
+                <field name="deadline_days" invisible="1"/>
+                <field name="deadline_days_show"/>
+                <field name="link"/>
+                <field name="change_date" invisible="1"/>
+                <field name="completed_date"/>
+                <field name="done"/>
+            </list>
+        </field>
+    </record>
+    <!--    Action for check list lines-->
+    <record id="crm_lead_check_history_action" model="ir.actions.act_window">
+        <field name="name">Check List</field>
+        <field name="res_model">crm.lead.check.history</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!--    menu for check list-->
+    <menuitem id="menu_check_list"
+              name="Check List" action="crm_lead_check_history_action"
+              parent="crm.crm_menu_root" sequence="21"/>
+
+    <menuitem
+        id="crm.menu_crm_lead_stage_act"
+        name="Stages"
+        sequence="0"
+        parent="crm.menu_crm_config_lead"
+        action="crm.crm_stage_action"
+        groups="crm_check_approve_limiter.crm_check_approve_manager"/>
+</odoo>

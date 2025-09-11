@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_lead_view_form_i" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='lead']" position="after">
+                    <field name="check_stage_ids" invisible="1"/>
+                    <page string="Check List" name="check_list"
+                          invisible="not check_stage_ids">
+                        <field name="checklist_progress" widget="percentpie"/>
+                        <separator/>
+                        <field name="check_list_ids"
+                               widget="many2many_checkboxes" invisible="1"/>
+                        <separator string="Check List"/>
+                        <field name="check_list_history">
+                            <!--                               options="{'no_create': True, 'no_create_edit':True}">-->
+                            <list string="History" editable="bottom">
+                                <field name="is_crm_manager" invisible="1"/>
+                                <field name="check_item"/>
+                                <field name="stage_id"/>
+                                <field name="list_action"/>
+                                <field name="user_id" string="Assign to"/>
+                                <field name="is_admin" invisible="1"/>
+                                <field name="deadline_date" readonly="not is_admin"/>
+                                <field name="link"/>
+                                <field name="change_date" invisible="1"/>
+                                <field name="completed_date"/>
+                                <field name="done"/>
+                                <field name="is_reminder_send" invisible="1"/>
+                                <button name="action_done" string="Done" type="object" class="btn-primary"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_kanban_view_leads_i" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//kanban" position="inside">
+                    <field name="checklist_progress"/>
+                </xpath>
+
+                <xpath expr="//t[@t-name='card']" position="inside">
+                    <div class="mt-1">
+                        <field name="checklist_progress" widget="progressbar"/>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_crm_case_opportunities_filter" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.lead.inherit.search</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+               <xpath expr="//filter[@name='assigned_to_me']" position="after">
+                   <filter string="Deadline" name="deadline_lead" domain="[('is_deadline_record', '=', True)]" help="Opportunities that are in deadline"/>
+               </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
