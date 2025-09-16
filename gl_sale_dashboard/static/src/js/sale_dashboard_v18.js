@@ -113,8 +113,8 @@ export class SaleDashboard extends Component {
     onDelivered() {
         this.openAction("Delivered", "stock.picking", [
             ["state", "=", "done"],
-            ["scheduled_date", ">=", this.state.from_date],
-            ["scheduled_date", "<=", this.state.to_date],
+            ["date_done", ">=", this.state.from_date],
+            ["date_done", "<=", this.state.to_date],
             ["name", "like", "OUT"],
         ]);
     }

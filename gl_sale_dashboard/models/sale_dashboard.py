@@ -147,7 +147,7 @@ class SaleOrderDashboard(models.Model):
         account_move_amount = sum(self.env['account.move'].sudo().search(inv_domain).mapped('amount_total_signed')) if account_move_count else 0.0
         # Stock pickings
         stock_done_domain = [('name', 'like', 'OUT'), ('state', '=', 'done'), ('scheduled_date', '>=', start_date_str), ('scheduled_date', '<=', end_date_str)]
-        stock_not_done_domain = [('name', 'like', 'OUT'), ('state', '!=', 'done'), ('scheduled_date', '>=', start_date_str), ('scheduled_date', '<=', end_date_str)]
+        stock_not_done_domain = [('name', 'like', 'OUT'), ('state', '!=', 'done'), ('date_done', '>=', start_date_str), ('date_done', '<=', end_date_str)]
         stock_picking_count = self.env['stock.picking'].sudo().search_count(stock_done_domain)
         not_stock_picking_count = self.env['stock.picking'].sudo().search_count(stock_not_done_domain)
 
