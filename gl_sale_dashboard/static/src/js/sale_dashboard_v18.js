@@ -14,7 +14,7 @@ export class SaleDashboard extends Component {
 
         // Reactive state
         this.state = useState({
-            from_date: this._getToday(),
+            from_date: this._getLastWeek(),
             to_date: this._getToday(),
             sale_order_count: 0,
             account_move_count: 0,
@@ -25,6 +25,8 @@ export class SaleDashboard extends Component {
             not_stock_picking_count: 0,
             retained_customer_count: 0,
             payment_details: [],
+            new_customer_ids: [],
+            retained_customer_ids: [],
         });
 
         // Initial fetch
@@ -38,6 +40,12 @@ export class SaleDashboard extends Component {
      */
     _getToday() {
         return new Date().toISOString().slice(0, 10);
+    }
+
+     _getLastWeek() {
+        const today = new Date();
+        today.setDate(today.getDate() - 7);
+        return today.toISOString().slice(0, 10);
     }
 
     /**
@@ -120,12 +128,16 @@ export class SaleDashboard extends Component {
         ]);
     }
 
-    onNewCustomers() {
-        this.openAction("New Customers", "res.partner", [["is_new_customer", "=", 1]]);
+        onNewCustomers() {
+        this.openAction("New Customers", "res.partner", [
+            ["id", "in", this.state.new_customer_ids]
+        ]);
     }
 
     onRetainedCustomers() {
-        this.openAction("Retained Customers", "res.partner", [["is_new_customer", ">", 1]]);
+        this.openAction("Retained Customers", "res.partner", [
+            ["id", "in", this.state.retained_customer_ids]
+        ]);
     }
 }
 

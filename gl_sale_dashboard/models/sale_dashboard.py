@@ -81,7 +81,7 @@ class SaleOrderDashboard(models.Model):
         Return dashboard values for 'today' in user's timezone.
         """
         utc_start, utc_end, start_date_str, end_date_str = self._user_utc_range(None, None)
-
+        print("---------", start_date_str, end_date_str)
         company_domain = [('company_id', '=', self.env.company.id)]
 
         # sale orders (date_order is datetime)
@@ -145,17 +145,28 @@ class SaleOrderDashboard(models.Model):
                       ('invoice_date', '>=', start_date_str), ('invoice_date', '<=', end_date_str)] + company_domain
         account_move_count = self.env['account.move'].sudo().search_count(inv_domain)
         account_move_amount = sum(self.env['account.move'].sudo().search(inv_domain).mapped('amount_total_signed')) if account_move_count else 0.0
-
         # Stock pickings
-        stock_done_domain = [('name', 'like', 'OUT'), ('state', '=', 'done'), ('scheduled_date', '>=', utc_start), ('scheduled_date', '<=', utc_end)]
-        stock_not_done_domain = [('name', 'like', 'OUT'), ('state', '!=', 'done'), ('scheduled_date', '>=', utc_start), ('scheduled_date', '<=', utc_end)]
+        stock_done_domain = [('name', 'like', 'OUT'), ('state', '=', 'done'), ('scheduled_date', '>=', start_date_str), ('scheduled_date', '<=', end_date_str)]
+        stock_not_done_domain = [('name', 'like', 'OUT'), ('state', '!=', 'done'), ('scheduled_date', '>=', start_date_str), ('scheduled_date', '<=', end_date_str)]
         stock_picking_count = self.env['stock.picking'].sudo().search_count(stock_done_domain)
         not_stock_picking_count = self.env['stock.picking'].sudo().search_count(stock_not_done_domain)
 
         # Customers: reuse stored is_new_customer field (computed)
-        partners = self.env['res.partner'].sudo().search([])
-        new_customer_count = sum(1 for p in partners if p.is_new_customer == 1)
-        retained_customer_count = sum(1 for p in partners if p.is_new_customer and p.is_new_customer > 1)
+        # partners = self.env['res.partner'].sudo().search([])
+        # new_customer_count = sum(1 for p in partners if p.is_new_customer == 1)
+        # retained_customer_count = sum(1 for p in partners if p.is_new_customer and p.is_new_customer > 1)
+        order_stats = self.env['sale.order'].sudo().read_group(
+            domain=[
+                ('date_order', '>=', start_date_str),
+                ('date_order', '<=', end_date_str),
+                ('state', 'in', ['sale', 'done']),  # count only confirmed/done orders
+            ],
+            fields=['partner_id'],
+            groupby=['partner_id'],
+        )
+
+        new_customer_ids = [rec['partner_id'][0] for rec in order_stats if rec['partner_id_count'] == 1]
+        retained_customer_ids = [rec['partner_id'][0] for rec in order_stats if rec['partner_id_count'] > 1]
 
         # payments (date field)
         payment_domain = [('partner_type', '=', 'customer'), ('date', '>=', start_date_str), ('date', '<=', end_date_str)]
@@ -169,9 +180,11 @@ class SaleOrderDashboard(models.Model):
             'account_move_amount': float(account_move_amount),
             'stock_picking_count': int(stock_picking_count),
             'not_stock_picking_count': int(not_stock_picking_count),
-            'new_customer_count': int(new_customer_count),
-            'retained_customer_count': int(retained_customer_count),
+            'new_customer_count': len(new_customer_ids),
+            'retained_customer_count': len(retained_customer_ids),
             'payment_details': payment_summary,
+            "new_customer_ids": new_customer_ids,
+            "retained_customer_ids": retained_customer_ids,
         }
 
 
