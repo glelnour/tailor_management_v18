@@ -216,7 +216,7 @@ class PaymentLinkWizard(models.TransientModel):
 
                 payload = {
                     "storeId": store_id,
-                    "merchantTransactionId": account_move.name,
+                    "merchantTransactionId": account_move.name or 'INVOICE',
                     "transactionOrigin": "ECOM",
                     "transactionType": "SALE",
                     "transactionAmount": {
@@ -276,7 +276,7 @@ class PaymentLinkWizard(models.TransientModel):
                         "orderDetails": {
                             "customerId": account_move.partner_id.ref or "",
                             "dynamicMerchantName": company.name,
-                            "invoiceNumber": account_move.name,
+                            "invoiceNumber": account_move.name or 'INVOICE',
                             "purchaseOrderNumber": account_move.ref or ""
                         },
                         "basket": {"lineItems": line_vals}
