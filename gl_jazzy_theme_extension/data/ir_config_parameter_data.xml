@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Set or update default green color (#418319) for Jazzy theme parameters -->
+    <function model="ir.config_parameter" name="set_param">
+        <value>jazzy_backend_theme.primary_accent_color</value>
+        <value>#418319</value>
+    </function>
+
+    <function model="ir.config_parameter" name="set_param">
+        <value>jazzy_backend_theme.appbar_color</value>
+        <value>#000000</value>
+    </function>
+
+    <function model="ir.config_parameter" name="set_param">
+        <value>jazzy_backend_theme.primary_hover</value>
+        <value>#418319</value>
+    </function>
+
+    <function model="ir.config_parameter" name="set_param">
+        <value>jazzy_backend_theme.secondary_hover</value>
+        <value>#418319</value>
+    </function>
+    <function model="ir.config_parameter" name="set_param">
+        <value>jazzy_backend_theme.secondary_color</value>
+        <value>#418319</value>
+    </function>
+</odoo>
+
+
+

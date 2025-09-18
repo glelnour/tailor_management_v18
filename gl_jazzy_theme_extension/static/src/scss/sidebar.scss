@@ -1,0 +1,31 @@
+#sidebar_panel {
+    width: 200px;
+}
+html .o_web_client > .o_action_manager{
+    margin-left: 200px;
+}
+.sidebar_panel .sidebar .sidebar_menu li a img {
+    margin-right: 10px;
+    display: none !important; /* hide original colorful app icons to avoid duplicates */
+}
+
+/* Make sidebar app icons monochrome white like the design */
+.sidebar_panel .sidebar .sidebar_menu li a .sidebar_img,
+.sidebar_panel .sidebar .sidebar_menu li a img.sidebar_img,
+.sidebar_panel .sidebar .sidebar_menu li a img {
+    filter: brightness(0) invert(1) !important; /* force white */
+}
+
+/* Ensure text and icons remain white on hover/active */
+.sidebar_panel .sidebar .sidebar_menu li:hover a,
+.sidebar_panel .sidebar .sidebar_menu li a:focus {
+    color: #ffffff !important;
+}
+
+// /* Font Awesome icon styling for sidebar */
+// .sidebar-fa {
+//     width: 22px;
+//     text-align: center;
+//     margin-right: 10px;
+//     color: #ffffff;
+// }

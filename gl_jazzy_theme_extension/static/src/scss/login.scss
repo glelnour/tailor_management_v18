@@ -1,0 +1,46 @@
+.oe_login_form input {
+    border-left: 0px !important;
+    border-right:  0px !important;
+    border-top:  0px !important;
+    border-radius: 0px;
+}
+.oe_login_form input::placeholder {
+    color: #9aa3af; /* lighter placeholder */
+    opacity: 1;     /* ensure consistent lightness */
+}
+
+/* Remove card panel look on login */
+.gl-login-page .card.bg-100,
+.gl-login-page .card,
+.gl-login-page .o_database_list,
+.gl-login-page .oe_login_form,
+.gl-login-page .card.border-0,
+.gl-login-page .bg-100 {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+.gl-login-page .card .card-body,
+.gl-login-page .o_database_list .card-body {
+    background: transparent !important;
+}
+.gl-login-page .shadow, .gl-login-page .shadow-sm, .gl-login-page .shadow-lg {
+    box-shadow: none !important;
+}
+.oe_login_form .btn {
+    border-radius: 1.5rem;
+}
+.oe_login_form .btn-primary {
+    background: #418319;
+}
+#wrapwrap > main {
+    background-image: url("../../description/login_bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Nudge the login card slightly downward */
+.gl-login-form {
+    margin-top: 42px;
+}

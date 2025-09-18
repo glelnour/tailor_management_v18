@@ -1,0 +1,40 @@
+<templates id="template" xml:space="preserve">
+    <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@t-on-click='OnClickMainMenu']"
+               position="attributes">
+            <attribute name="class">d-flex justify-content-center align-items-center o_main-menu-button</attribute>
+            <attribute name="style">padding: 11px!important;</attribute>
+        </xpath>
+        <xpath expr="//i[hasclass('oi-apps')]"
+               position="after">
+            <img src="/gl_jazzy_theme_extension/static/description/greenline_logo.png"
+                 style="height: 30px; width:150px; margin-left: 15px;"/>
+        </xpath>
+        <xpath expr="//i[hasclass('oi-apps')]"
+               position="attributes">
+            <attribute name="class">fa fa-bars</attribute>
+        </xpath>
+    </t>
+    <!--  To show the sidebar to select the apps from the sidebar  -->
+    <t t-inherit="web.NavBar" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('sidebar_panel')]//a" position="inside">
+            <!-- Determine a single icon per app to avoid duplicates -->
+            <t t-set="xmlid" t-value="(app.xmlid || '')"/>
+            <t t-set="icon" t-value="'fa-th'"/>
+            <t t-if="app.name === 'Discuss' or xmlid.includes('mail')"><t t-set="icon" t-value="'fa-comments'"/></t>
+            <t t-if="app.name === 'Calendar' or xmlid.includes('calendar')"><t t-set="icon" t-value="'fa-calendar'"/></t>
+            <t t-if="app.name === 'Contacts' or xmlid.includes('contacts') or xmlid.includes('partner')"><t t-set="icon" t-value="'fa-address-book'"/></t>
+            <t t-if="app.name === 'CRM' or xmlid.includes('crm')"><t t-set="icon" t-value="'fa-users'"/></t>
+            <t t-if="app.name === 'Sales' or xmlid.includes('sale')"><t t-set="icon" t-value="'fa-shopping-cart'"/></t>
+            <t t-if="app.name === 'Dashboards' or app.name === 'Dashboard' or xmlid.includes('board')"><t t-set="icon" t-value="'fa-th-large'"/></t>
+            <t t-if="app.name === 'Point of Sale' or app.name === 'POS' or xmlid.includes('point_of_sale')"><t t-set="icon" t-value="'fa-calculator'"/></t>
+            <t t-if="app.name === 'Invoicing' or xmlid.includes('account')"><t t-set="icon" t-value="'fa-file-text-o'"/></t>
+            <t t-if="app.name === 'Purchase' or xmlid.includes('purchase')"><t t-set="icon" t-value="'fa-credit-card'"/></t>
+            <t t-if="app.name === 'Inventory' or xmlid.includes('stock')"><t t-set="icon" t-value="'fa-cubes'"/></t>
+            <t t-if="app.name === 'Apps' or xmlid.includes('apps')"><t t-set="icon" t-value="'fa-th'"/></t>
+            <t t-if="app.name === 'Settings' or xmlid.includes('settings')"><t t-set="icon" t-value="'fa-cog'"/></t>
+            <i t-att-class="'fa ' + icon + ' me-2 sidebar-fa'"/>
+            <span t-esc="app.name"/>
+        </xpath>
+    </t>
+</templates>
