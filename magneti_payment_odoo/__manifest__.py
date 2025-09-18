@@ -4,7 +4,7 @@
     'version': "1.0",
     'description': """GL Magneti Payment""",
     'summary': "GL Magneti Payment Integration",
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale', 'account'],
     'data': [
         # 'security/ir.model.access.csv',
         'data/ir_cron.xml',
