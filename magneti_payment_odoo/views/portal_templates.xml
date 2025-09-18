@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payment_success_template" name="Fiserv Payment Success">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <h2>Thank you!</h2>
+                <p>Your payment was successful.</p>
+                <a href="/" class="btn btn-primary mt-3">Go to Homepage</a>
+            </div>
+        </t>
+    </template>
+
+    <template id="payment_failure_template" name="Fiserv Payment Failure">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <h2>Payment Failed</h2>
+                <p>We were unable to process your payment. Please try again or contact support.</p>
+                <a href="/" class="btn btn-danger mt-3">Return to Homepage</a>
+            </div>
+        </t>
+    </template>
+</odoo>

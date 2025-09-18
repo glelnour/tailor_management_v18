@@ -11,11 +11,13 @@
     'sequence': 1,
     'data': [
         'security/ir.model.access.csv',
+        'data/ir_cron.xml',
         'views/res_partner.xml',
         'views/product.xml',
         'views/crm_lead.xml',
         'views/tailor_design_method.xml',
         'views/report_invoice.xml',
+        'wizard/invoice_selection_view.xml'
     ],
     "license": "OPL-1",
     'installable': True,

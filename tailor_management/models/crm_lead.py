@@ -2,6 +2,7 @@
 
 from odoo import fields, models, api
 from odoo.exceptions import UserError
+from datetime import timedelta
 
 
 class Lead(models.Model):
@@ -44,8 +45,9 @@ class Lead(models.Model):
         'res.partner', string='Customer', check_company=True, index=True, tracking=10,
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
         help="Linked partner (optional). Usually created when converting the lead. You can find a partner by its Name, TIN, Email or Internal Reference.")
-    expected_delivery = fields.Datetime(string='Expected Delivery Date', compute='_compute_delivery_dates')
+    expected_delivery = fields.Datetime(string='Expected Delivery Date')
     actual_delivery = fields.Datetime(string='Actual Delivery Date',compute='_compute_delivery_dates')
+    prova_date = fields.Datetime(string="Prova Date")
     # First set of fields
     bust_cup_size_1 = fields.Char(string='Bust Cup Size', tracking=True)
     neck_1 = fields.Char(string='Neck', tracking=True)
@@ -88,6 +90,51 @@ class Lead(models.Model):
     ankle_2 = fields.Char(string='Ankle', tracking=True)
     total_length_2 = fields.Char(string='Total Length', tracking=True)
     total_customers = fields.Integer(compute='get_no_of_customers', store=True)
+    invoice_id = fields.Many2one('account.move', string='Related Invoice')
+
+    def create_invoice_wizard(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'invoice.confirmation.wizard',
+            'view_id': self.env.ref('tailor_management.view_invoice_confirmation_wizard').id,
+            'target': 'new',
+            'context': {
+                'default_lead_id': self.id,
+            },
+        }
+
+    @api.model
+    def _cron_send_prova_reminders(self):
+        """Send reminder 1 day before prova_date."""
+        today = fields.Date.today()
+        reminder_date = today + timedelta(days=1)
+
+        leads = self.search([("prova_date", "=", reminder_date)])
+        for lead in leads:
+            # Example: send internal activity to the salesperson
+            lead.activity_schedule(
+                'mail.mail_activity_data_todo',
+                user_id=lead.user_id.id or self.env.user.id,
+                summary="Prova Reminder",
+                note=f"Reminder: Prova scheduled on {lead.prova_date} for {lead.name}.",
+            )
+
+    def advance_payment(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'account.payment',
+            'view_id': self.env.ref('account.view_account_payment_form').id,
+            'target': 'current',
+            'context': {
+                'default_lead_id': self.id,
+                'default_partner_id': self.partner_id.id
+            },
+        }
+
 
     @api.depends('child_partner_ids')
     def get_no_of_customers(self):
@@ -100,16 +147,16 @@ class Lead(models.Model):
     def _compute_delivery_dates(self):
         for rec in self:
             if rec.order_ids:
-                if rec.order_ids[0] and rec.order_ids[0].commitment_date:
-                    rec.expected_delivery = rec.order_ids[0].commitment_date
-                else:
-                    rec.expected_delivery = False
-                if rec.order_ids[0] and rec.order_ids[0].date_order:
-                    rec.actual_delivery = rec.order_ids[0].date_order
+                # if rec.order_ids[0] and rec.order_ids[0].commitment_date:
+                #     rec.expected_delivery = rec.order_ids[0].commitment_date
+                # else:
+                #     rec.expected_delivery = False
+                if rec.order_ids[0] and rec.order_ids[0].picking_ids[0].date_done:
+                    rec.actual_delivery = rec.order_ids[0].picking_ids[0].date_done
                 else:
                     rec.actual_delivery = False
             else:
-                rec.expected_delivery = False
+                # rec.expected_delivery = False
                 rec.actual_delivery = False
 
     @api.onchange('is_vip_customer')
@@ -186,7 +233,6 @@ class Lead(models.Model):
 
     def action_new_quotation(self):
         action = super(Lead, self).action_new_quotation()
-
         if not self.partner_id.is_vip_customer and not self.payment_ids:
             raise UserError("Please add some advance payment before creating a quotation.")
 
@@ -205,7 +251,7 @@ class Lead(models.Model):
                 'product_id': line.product_id.id,
                 'name': line.product_id.name,
                 'product_uom': line.product_id.uom_id.id,
-                'price_unit': line.product_id.list_price,
+                'price_unit': 0,
                 'product_uom_qty': line.quantity
             }))
         action['context']['default_child_partner_ids'] = [(6, 0, self.child_partner_ids.ids)]

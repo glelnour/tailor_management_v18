@@ -35,6 +35,6 @@
                 id="menu_action_tailor_design_method"
                 action="action_tailor_design_method"
                 parent="crm.crm_menu_root"
-                sequence="21"/>
+                sequence="21" active="False"/>
     </data>
 </odoo>

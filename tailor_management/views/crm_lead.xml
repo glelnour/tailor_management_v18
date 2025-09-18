@@ -6,6 +6,15 @@
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_lead_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="advance_payment" string="Advance Payment"
+                            type="object" class="btn-primary" invisible="lead_payment_count == 1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_sale_quotations_new']" position="replace">
+                    <button name="create_invoice_wizard" string="Create Invoice"
+                            type="object" class="btn-primary"
+                            invisible="not is_vip_customer and not lead_payment_count &gt; 0"/>
+                </xpath>
                 <xpath expr="//div[@name='button_box']" position="inside">
                     <button name="action_view_payments" type="object" class="oe_stat_button" icon="fa-dollar">
                         <div class="o_stat_info">
@@ -14,14 +23,29 @@
                         </div>
                     </button>
                 </xpath>
+                <xpath expr="//field[@name='email_from']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+              <xpath expr="//label[@for='phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+              </xpath>
+                <xpath expr="//div[field[@name='phone']]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@id='probability']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
                 <xpath expr="//group[@name='opportunity_partner']/field[@name='partner_id']" position="after">
+                    <field name="phone" widget="phone"/>
                     <field name="child_partner_ids" widget="many2many_tags"/>
                     <field name="is_vip_customer"/>
                     <field name="product_id" options="{'no_create': 1}" invisible="1"/>
-                    <field name="product_ids" options="{'no_create': 1}" required="True" widget="many2many_tags"/>
-                    <field name="design_method_id" options="{'no_create': 1}" required="True"/>
-                    <field name="expected_delivery"/>
+                    <field name="product_ids" options="{'no_create': 1}" required="True" widget="many2many_tags" domain="[('is_main_product','=', True)]"/>
+                    <field name="design_method_id" options="{'no_create': 1}" required="False" invisible="1"/>
+                    <field name="prova_date"/>
+                    <field name="expected_delivery" />
                     <field name="actual_delivery"/>
+                    <field name="invoice_id" readonly="1"/>
                 </xpath>
 <!--                <xpath expr="//field[@name='phone']" position="after">-->
 <!--                    <field name="design_method_id" options="{'no_create': 1}" required="True"/>-->
@@ -114,38 +138,38 @@
                 <xpath expr="//page[@name='lead']" position="after">
                     <page string="Product Pack">
                         <field name="pack_line_ids" widget="one2many">
-                            <list string="History" widget="section_and_note_one2many">
+                            <list string="History" widget="section_and_note_one2many" editable="bottom">
                                 <control>
                                     <create name="add_line_control" string="Add a line" context="{'default_display_type': 'line_product'}"/>
                                     <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
                                 </control>
-                                <field name="name" widget="section_and_note_text"/>
-                                <field name="section_description" column_invisible="1"/>
+                                <field name="name" widget="section_and_note_text" column_invisible="1"/>
+                                <field name="section_description" column_invisible="0"/>
                                 <field name="display_type" column_invisible="1"/>
-                                <field name="product_id" column_invisible="1"/>
+                                <field name="product_id" column_invisible="0"/>
                                 <field name="quantity" force_save="1" invisible="display_type == 'line_section'" required="display_type != 'line_section'"/>
                                 <field name="uom_id" invisible="display_type == 'line_section'"  required="display_type != 'line_section'"/>
                                 <field name="list_price" readonly="0" force_save="1" invisible="display_type == 'line_section'"  required="display_type != 'line_section'"/>
                                 <field name="cost" invisible="display_type == 'line_section'"  required="display_type != 'line_section'"/>
                                 <field name="total_cost" invisible="display_type == 'line_section'"  required="display_type != 'line_section'"/>
                             </list>
-                            <form>
-                                <group invisible="display_type != 'line_section'">
-                                    <field name="section_description" required="display_type == 'line_section'" invisible="display_type != 'line_section'"/>
-                                </group>
-                                <group invisible="display_type == 'line_section'">
-                                    <group>
-                                        <field name="display_type" invisible="1"/>
-                                        <field name="section_description" required="display_type == 'line_section'" invisible="display_type == 'line_section'"/>
-                                        <field name="product_id" invisible="display_type == 'line_section'" required="display_type != 'line_section'"/>
-                                        <field name="quantity" force_save="1" invisible="display_type == 'line_section'"/>
-                                        <field name="uom_id" invisible="display_type == 'line_section'"/>
-                                        <field name="list_price" readonly="0" force_save="1" invisible="display_type == 'line_section'"/>
-                                        <field name="cost" invisible="1"/>
-                                        <field name="total_cost" invisible="1"/>
-                                    </group>
-                                </group>
-                            </form>
+<!--                            <form>-->
+<!--                                <group invisible="display_type != 'line_section'">-->
+<!--                                    <field name="section_description" required="display_type == 'line_section'" invisible="display_type != 'line_section'"/>-->
+<!--                                </group>-->
+<!--                                <group invisible="display_type == 'line_section'">-->
+<!--                                    <group>-->
+<!--                                        <field name="display_type" invisible="1"/>-->
+<!--                                        <field name="section_description" required="display_type == 'line_section'" invisible="display_type == 'line_section'"/>-->
+<!--                                        <field name="product_id" invisible="display_type == 'line_section'" required="display_type != 'line_section'"/>-->
+<!--                                        <field name="quantity" force_save="1" invisible="display_type == 'line_section'"/>-->
+<!--                                        <field name="uom_id" invisible="display_type == 'line_section'"/>-->
+<!--                                        <field name="list_price" readonly="0" force_save="1" invisible="display_type == 'line_section'"/>-->
+<!--                                        <field name="cost" invisible="1"/>-->
+<!--                                        <field name="total_cost" invisible="1"/>-->
+<!--                                    </group>-->
+<!--                                </group>-->
+<!--                            </form>-->
                         </field>
                     </page>
                 </xpath>
@@ -224,14 +248,14 @@
 
 <!--        to make tree view first-->
         <record id="crm.crm_lead_action_pipeline_view_kanban" model="ir.actions.act_window.view">
-            <field name="sequence" eval="1"/>
+            <field name="sequence" eval="0"/>
             <field name="view_mode">kanban</field>
             <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
             <field name="act_window_id" ref="crm.crm_lead_action_pipeline"/>
         </record>
 
         <record id="crm.crm_lead_action_pipeline_view_tree" model="ir.actions.act_window.view">
-            <field name="sequence" eval="0"/>
+            <field name="sequence" eval="1"/>
             <field name="view_mode">list</field>
             <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
             <field name="act_window_id" ref="crm.crm_lead_action_pipeline"/>

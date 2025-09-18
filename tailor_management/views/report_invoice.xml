@@ -337,7 +337,7 @@
                         <tr>
                             <!-- Cell for Image -->
                             <td style="border-left: 1px solid black; border-top: 1px solid black; border-bottom: 1px solid black;padding: 10px; vertical-align: top;">
-                                <img src="/tailor_management/static/src/img/measurement_image.png"
+                                <img t-att-src="'/tailor_management/static/src/img/measurement_image.png'"
                                      alt="measurement_image"
                                      style=" padding: 5px; width: 200px; height: 350px;"/>
                             </td>

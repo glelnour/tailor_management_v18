@@ -59,7 +59,7 @@
     <!--    menu for check list-->
     <menuitem id="menu_check_list"
               name="Check List" action="crm_lead_check_history_action"
-              parent="crm.crm_menu_root" sequence="21"/>
+              parent="crm.crm_menu_root" sequence="21" active="False"/>
 
     <menuitem
         id="crm.menu_crm_lead_stage_act"
