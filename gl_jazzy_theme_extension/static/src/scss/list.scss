@@ -22,6 +22,11 @@
   box-shadow: none;
 }
 
+/* Soft zebra striping for readability */
+.o_list_view .o_list_table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
 /* rounded edges for first/last visible cells */
 /* keep subtle rounding only on hover to avoid layout artifacts */
 .o_list_view .o_list_table tbody tr:hover > td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
@@ -32,14 +37,28 @@
   box-shadow: none;
 }
 
+/* Emphasize hover with subtle outline */
+.o_list_view .o_list_table tbody tr:hover td {
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04);
+}
+
 /* Selected row */
 .o_list_view .o_list_table tbody tr.o_data_row.o_selected_row {
-  background: rgba(65,131,25,0.08) !important; /* matches brand green but very soft */
+  background: rgba(114, 198, 63, 0.14) !important; /* brand green, soft */
 }
 
 /* Cells */
 .o_list_view .o_list_table td, .o_list_view .o_list_table th {
   padding: 10px 12px;
+}
+
+/* Sticky first column (id or name) on horizontal scroll */
+.o_list_view .o_list_table tbody td:first-child,
+.o_list_view .o_list_table thead th:first-child {
+  position: sticky;
+  left: 0;
+  background: inherit;
+  z-index: 1;
 }
 
 /* Compact badges/tags inside list */
@@ -48,10 +67,27 @@
 /* Sticky header subtle shadow to separate from content */
 .o_list_view .o_list_table thead { box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
 
+/* Header bottom border accent */
+.o_list_view .o_list_table thead th {
+  border-bottom: 2px solid var(--primary-accent, #72C63F);
+}
+
 /* Pager and controls */
 .o_control_panel .o_cp_bottom .o_pager .o_pager_counter {
   border-radius: 10px;
   background: #ffffff;
+}
+
+/* Checkboxes aligned with brand color */
+.o_list_view input[type="checkbox"] {
+  accent-color: var(--primary-accent, #72C63F);
+}
+
+/* Editable cell focus */
+.o_list_view .o_input:focus {
+  outline: 2px solid rgba(114, 198, 63, 0.35);
+  border-color: var(--primary-accent, #72C63F);
+  box-shadow: 0 0 0 3px rgba(114, 198, 63, 0.15);
 }
 
 

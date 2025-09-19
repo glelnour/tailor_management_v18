@@ -57,13 +57,31 @@
                           <a role="menuitem"
                              t-on-click="() => this.onNavBarDropdownItemSelection(app)"
                              t-att-class="{ o_dropdown_active: menuService.getCurrentApp() === app }">
+                            <!-- Map apps to Font Awesome icons for Home (app drawer) -->
+                            <t t-set="xmlid" t-value="(app.xmlid || '')"/>
+                            <t t-set="icon" t-value="'fa-th'"/>
+                            <t t-if="app.name === 'Discuss' or xmlid.includes('mail')"><t t-set="icon" t-value="'fa-comments'"/></t>
+                            <t t-if="app.name === 'Calendar' or xmlid.includes('calendar')"><t t-set="icon" t-value="'fa-calendar'"/></t>
+                            <t t-if="app.name === 'Contacts' or xmlid.includes('contacts') or xmlid.includes('partner')"><t t-set="icon" t-value="'fa-address-book'"/></t>
+                            <t t-if="app.name === 'CRM' or xmlid.includes('crm')"><t t-set="icon" t-value="'fa-users'"/></t>
+                            <t t-if="app.name === 'Sales' or xmlid.includes('sale')"><t t-set="icon" t-value="'fa-shopping-cart'"/></t>
+                            <t t-if="app.name === 'Dashboards' or app.name === 'Dashboard' or xmlid.includes('board')"><t t-set="icon" t-value="'fa-th-large'"/></t>
+                            <t t-if="app.name === 'Point of Sale' or app.name === 'POS' or xmlid.includes('point_of_sale')"><t t-set="icon" t-value="'fa-calculator'"/></t>
+                            <t t-if="app.name === 'Invoicing' or xmlid.includes('account')"><t t-set="icon" t-value="'fa-file-text-o'"/></t>
+                            <t t-if="app.name === 'Purchase' or xmlid.includes('purchase')"><t t-set="icon" t-value="'fa-credit-card'"/></t>
+                            <t t-if="app.name === 'Inventory' or xmlid.includes('stock')"><t t-set="icon" t-value="'fa-cubes'"/></t>
+                            <t t-if="app.name === 'Employees' or xmlid.includes('hr')"><t t-set="icon" t-value="'fa-id-badge'"/></t>
+                            <t t-if="app.name === 'Apps' or xmlid.includes('apps')"><t t-set="icon" t-value="'fa-th'"/></t>
+                            <t t-if="app.name === 'Settings' or xmlid.includes('settings')"><t t-set="icon" t-value="'fa-cog'"/></t>
+
+                            <i t-att-class="'fa ' + icon" style="font-size:52px;color: var(--primary-accent, #72C63F); margin:6px 0;"></i>
                             <img t-if="app.webIcon.includes('.png')"
                                  t-att-title="app.name"
-                                 style="width: 70px !important;height: 70px !important;margin: 5px 5px 5px 5px;"
+                                 style="display:none;width: 70px !important;height: 70px !important;margin: 5px 5px 5px 5px;"
                                  t-attf-src="{{app.webIconData}}"/>
                               <img t-if="app.webIcon.includes('.svg')"
                                    t-att-title="app.name"
-                                   style="width: 70px !important;height: 70px !important;margin: 5px 5px 5px 5px;"
+                                   style="display:none;width: 70px !important;height: 70px !important;margin: 5px 5px 5px 5px;"
                                    t-attf-src="{{app.webIconData}}"/>
                               <b class="a_app_menu_title"
                                  style="color:white;text-shadow: 1px 1px 1px rgb(0 0 0 / 40%);"><t t-esc="app.name"/></b>

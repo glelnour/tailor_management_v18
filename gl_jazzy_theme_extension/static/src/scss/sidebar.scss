@@ -9,11 +9,75 @@ html .o_web_client > .o_action_manager{
     display: none !important; /* hide original colorful app icons to avoid duplicates */
 }
 
+/* Hide the default apps grid icon in the top navbar button */
+.o_main-menu-button .oi,
+.o_main-menu-button .oi-apps,
+.o_main-menu-button .fa,
+.o_main-menu-button .fa-bars {
+    display: none !important;
+}
+
+/* Make the company logo in navbar larger */
+.o_main-menu-button img {
+    height: 40px !important;
+    width: auto !important;
+    margin-left: 8px !important;
+}
+
+/* Ensure navbar accommodates larger logo */
+.o_main_navbar {
+    height: 50px !important;
+    min-height: 50px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Force the exact height for the specific navbar class combination */
+.o_main_navbar.d-print-none {
+    height: 50px !important;
+    min-height: 50px !important;
+}
+
+/* Center contents vertically in taller navbar */
+.o_main_navbar, .o_main_navbar .o_navbar_apps_menu, .o_main_navbar .o_menu_brand {
+    display: flex;
+    align-items: center;
+}
+
+/* Ensure all interactive items match the navbar height on every screen */
+.o_main_navbar .o_menu_brand,
+.o_main_navbar .o_navbar_apps_menu .dropdown-toggle,
+.o_main_navbar .o_menu_toggle,
+.o_main_navbar .o_nav_entry {
+    height: 50px !important;
+    line-height: 50px !important;
+    display: flex;
+    align-items: center;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Ensure consistency on apps dashboard too */
+.o_web_client .o_navbar,
+.o_web_client .o_main_navbar {
+    height: 50px !important;
+    min-height: 50px !important;
+}
+
 /* Make sidebar app icons monochrome white like the design */
 .sidebar_panel .sidebar .sidebar_menu li a .sidebar_img,
 .sidebar_panel .sidebar .sidebar_menu li a img.sidebar_img,
 .sidebar_panel .sidebar .sidebar_menu li a img {
     filter: brightness(0) invert(1) !important; /* force white */
+}
+
+/* Home menu (apps dashboard) icons: render as solid black without affecting other pages */
+body:not(.o_web_client) .o_apps .o_app img,
+.o_web_client .o_action_manager ~ .o_home_menu_background .o_apps .o_app img,
+.o_web_client .o_home_menu_background .o_app img,
+.o_app_switcher .o_app img,
+.o_apps .o_app .o_app_icon img {
+    filter: grayscale(1) brightness(0) contrast(1.2) !important;
 }
 
 /* Ensure text and icons remain white on hover/active */

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Override favicon to use square company logo and provide multiple sizes -->
+    <template id="gl_favicon" inherit_id="web.layout">
+        <xpath expr="//link[@rel='shortcut icon']" position="attributes">
+            <attribute name="t-att-href">'/gl_jazzy_theme_extension/static/description/favicon.png'</attribute>
+        </xpath>
+        <!-- Ensure theme-color is our brand green at first paint -->
+        <xpath expr="//head" position="inside">
+            <meta name="theme-color" content="#72C63F"/>
+        </xpath>
+        <xpath expr="//head/link[@rel='shortcut icon']" position="after">
+            <link rel="icon" type="image/png" sizes="16x16" href="/gl_jazzy_theme_extension/static/description/favicon_square.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="/gl_jazzy_theme_extension/static/description/favicon_square.png"/>
+            <link rel="icon" type="image/png" sizes="48x48" href="/gl_jazzy_theme_extension/static/description/favicon_square.png"/>
+            <link rel="icon" type="image/png" sizes="64x64" href="/gl_jazzy_theme_extension/static/description/favicon_square.png"/>
+            <link rel="icon" type="image/png" sizes="192x192" href="/gl_jazzy_theme_extension/static/description/favicon_square.png"/>
+            <link rel="apple-touch-icon" sizes="180x180" href="/gl_jazzy_theme_extension/static/description/favicon_square.png"/>
+        </xpath>
+    </template>
     <template id="gl_login_layout" inherit_id="web.login_layout">
         <xpath expr="//div[hasclass('container')]" position="replace">
             <div class="container py-5 gl-login-page">

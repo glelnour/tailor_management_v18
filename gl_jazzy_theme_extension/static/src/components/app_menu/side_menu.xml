@@ -5,14 +5,9 @@
             <attribute name="class">d-flex justify-content-center align-items-center o_main-menu-button</attribute>
             <attribute name="style">padding: 11px!important;</attribute>
         </xpath>
-        <xpath expr="//i[hasclass('oi-apps')]"
-               position="after">
+        <xpath expr="//div[@t-on-click='OnClickMainMenu']" position="inside">
             <img src="/gl_jazzy_theme_extension/static/description/greenline_logo.png"
-                 style="height: 30px; width:150px; margin-left: 15px;"/>
-        </xpath>
-        <xpath expr="//i[hasclass('oi-apps')]"
-               position="attributes">
-            <attribute name="class">fa fa-bars</attribute>
+                 style="height: 10px; width:auto; margin-left: 15px;"/>
         </xpath>
     </t>
     <!--  To show the sidebar to select the apps from the sidebar  -->
@@ -31,6 +26,7 @@
             <t t-if="app.name === 'Invoicing' or xmlid.includes('account')"><t t-set="icon" t-value="'fa-file-text-o'"/></t>
             <t t-if="app.name === 'Purchase' or xmlid.includes('purchase')"><t t-set="icon" t-value="'fa-credit-card'"/></t>
             <t t-if="app.name === 'Inventory' or xmlid.includes('stock')"><t t-set="icon" t-value="'fa-cubes'"/></t>
+            <t t-if="app.name === 'Employees' or xmlid.includes('hr')"><t t-set="icon" t-value="'fa-id-badge'"/></t>
             <t t-if="app.name === 'Apps' or xmlid.includes('apps')"><t t-set="icon" t-value="'fa-th'"/></t>
             <t t-if="app.name === 'Settings' or xmlid.includes('settings')"><t t-set="icon" t-value="'fa-cog'"/></t>
             <i t-att-class="'fa ' + icon + ' me-2 sidebar-fa'"/>
