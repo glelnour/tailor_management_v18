@@ -9,5 +9,15 @@
             <field name="interval_type">days</field>
             <field name="active">True</field>
         </record>
+
+        <record id="ir_cron_delivery_reminder" model="ir.cron">
+            <field name="name">Delivery Reminder</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_send_delivery_reminders()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active">True</field>
+        </record>
     </data>
 </odoo>

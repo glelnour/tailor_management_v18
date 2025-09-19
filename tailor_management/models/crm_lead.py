@@ -94,6 +94,7 @@ class Lead(models.Model):
 
     def create_invoice_wizard(self):
         return {
+            'name': ("GL"),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
@@ -120,6 +121,23 @@ class Lead(models.Model):
                 summary="Prova Reminder",
                 note=f"Reminder: Prova scheduled on {lead.prova_date} for {lead.name}.",
             )
+
+        @api.model
+        def _cron_send_delivery_reminders(self):
+            """Send reminder 1 day before delivery_date."""
+            today = fields.Date.today()
+            reminder_date = today + timedelta(days=1)
+
+            leads = self.search([("expected_delivery", "=", reminder_date)])
+            for lead in leads:
+                if not lead.stage_id.is_won:
+                    # Example: send internal activity to the salesperson
+                    lead.activity_schedule(
+                        'mail.mail_activity_data_todo',
+                        user_id=lead.user_id.id or self.env.user.id,
+                        summary="Expected Delivery Date Reminder",
+                        note=f"Reminder: Expected Delivery Date scheduled on {lead.expected_delivery} for {lead.name}.",
+                    )
 
     def advance_payment(self):
         return {

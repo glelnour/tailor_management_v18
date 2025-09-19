@@ -5,7 +5,7 @@ import requests
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    fiserv_payment_link = fields.Char("Fiserv Payment Link")
+    fiserv_payment_link = fields.Char("GL Payment Link")
     paymentLinkId = fields.Char()
 
     # def check_payment_status(self):

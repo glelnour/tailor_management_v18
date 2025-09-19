@@ -15,4 +15,10 @@
             </form>
         </field>
     </record>
+
+    <record id="action_invoice_selection" model="ir.actions.act_window">
+            <field name="name">GL</field>
+            <field name="res_model">invoice.confirmation.wizard</field>
+            <field name="view_mode">form</field>
+    </record>
 </odoo>
