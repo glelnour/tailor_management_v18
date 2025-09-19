@@ -24,16 +24,18 @@
                             <div class="mr-3">
                                 <label class="font-weight-bold">From Date:</label>
                                 <input type="date" class="form-control"
-                                       t-att-value="state.from_date"
-                                       data-field="from_date"
-                                       t-on-change="onDateChange"/>
+                                       t-model="state.from_date"
+                                       t-on-change="onDateChange"
+                                       data-field="from_date"/>
+
                             </div>
                             <div>
                                 <label class="font-weight-bold">To Date:</label>
                                 <input type="date" class="form-control"
-                                       t-att-value="state.to_date"
-                                       data-field="to_date"
-                                       t-on-change="onDateChange"/>
+                                       t-model="state.to_date"
+                                       t-on-change="onDateChange"
+                                       data-field="to_date"/>
+
                             </div>
                         </div>
                     </div>
@@ -45,7 +47,7 @@
   <div class="row g-3 justify-content-center">
 
     <!-- Sale Orders -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onSaleOrders">
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onSaleOrders">
       <div class="oh-card"
            style="background-color: #10a9e8; border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
         <div class="oh-card-body text-center">
@@ -54,17 +56,17 @@
                  style="background:#10a9e8; border-radius: 50%; padding: 15px; margin-bottom: 10px;">
               <i class="fa fa-calendar-check-o" style="font-size: 36px; color: white;"></i>
             </div>
-            <div class="stat-content">
+              <div class="stat-content">
               <div class="stat-head"><t t-esc="state.sale_order_count"/></div>
-              <div class="stat_count">Sale Order Count</div>
+                  <div class="stat_count">Sale Order Count</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Invoices -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onInvoices">
+      <!-- Invoices -->
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onInvoices">
       <div class="oh-card"
            style="background-color: rgb(67, 238, 172); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
         <div class="oh-card-body text-center">
@@ -73,17 +75,17 @@
                  style="background:rgb(67, 238, 172); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
               <i class="fa fa-sticky-note-o" style="font-size: 36px; color: white;"></i>
             </div>
-            <div class="stat-content">
+              <div class="stat-content">
               <div class="stat-head"><t t-esc="state.account_move_count"/></div>
-              <div class="stat_count">Invoice Count</div>
+                  <div class="stat_count">Invoice Count</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Delivered -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onDelivered">
+      <!-- Delivered -->
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onDelivered">
       <div class="oh-card"
            style="background-color: rgba(241, 147, 7, 0.829); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
         <div class="oh-card-body text-center">
@@ -92,17 +94,17 @@
                  style="background-color:rgba(241, 147, 7, 0.829); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
               <i class="fa fa-truck" style="font-size: 36px; color: white;"></i>
             </div>
-            <div class="stat-content">
+              <div class="stat-content">
               <div class="stat-head"><t t-esc="state.stock_picking_count"/></div>
-              <div class="stat_count">Delivered</div>
+                  <div class="stat_count">Delivered</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- New Customers -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onNewCustomers">
+      <!-- New Customers -->
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onNewCustomers">
       <div class="oh-card"
            style="background-color: rgba(247, 42, 5, 0.829); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
         <div class="oh-card-body text-center">
@@ -111,17 +113,17 @@
                  style="background:rgba(247, 42, 5, 0.829); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
               <i class="fa fa-user-plus" style="font-size: 36px; color: white;"></i>
             </div>
-            <div class="stat-content">
+              <div class="stat-content">
               <div class="stat-head"><t t-esc="state.new_customer_count"/></div>
-              <div class="stat_count">New Customer</div>
+                  <div class="stat_count">New Customer</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Sale Order Amount -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onSaleOrders">
+      <!-- Sale Order Amount -->
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onSaleOrders">
       <div class="oh-card"
            style="background-color: #10a9e8; border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
             <div class="oh-card-body text-center">
@@ -130,17 +132,17 @@
                      style="background:#10a9e8; border-radius: 50%; padding: 15px; margin-bottom: 10px;">
                   <i class="fa fa-money" style="font-size: 36px; color: white;"></i>
                 </div>
-                <div class="stat-content">
+                  <div class="stat-content">
                   <div class="stat-head"><t t-esc="state.sale_order_amount"/></div>
-                  <div class="stat_count">Sale Order Amount</div>
+                      <div class="stat_count">Sale Order Amount</div>
                 </div>
               </div>
             </div>
       </div>
     </div>
 
-    <!-- Invoice Amount -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onInvoices">
+      <!-- Invoice Amount -->
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onInvoices">
           <div class="oh-card"
                style="background-color: rgb(67, 238, 172); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
                 <div class="oh-card-body text-center">
@@ -149,17 +151,17 @@
                          style="background:rgb(67, 238, 172); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
                       <i class="fa fa-money" style="font-size: 36px; color: white;"></i>
                     </div>
-                    <div class="stat-content">
+                      <div class="stat-content">
                       <div class="stat-head"><t t-esc="state.account_move_amount"/></div>
-                      <div class="stat_count">Invoice Amount</div>
+                          <div class="stat_count">Invoice Amount</div>
                     </div>
                   </div>
                 </div>
           </div>
     </div>
 
-    <!-- Not Delivered -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onNotDelivered">
+      <!-- Not Delivered -->
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onNotDelivered">
       <div class="oh-card"
            style="background-color: rgba(241, 147, 7, 0.829); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
         <div class="oh-card-body text-center">
@@ -168,17 +170,17 @@
                  style="background:rgba(241, 147, 7, 0.829); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
               <i class="fa fa-shopping-cart" style="font-size: 36px; color: white;"></i>
             </div>
-            <div class="stat-content">
+              <div class="stat-content">
               <div class="stat-head"><t t-esc="state.not_stock_picking_count"/></div>
-              <div class="stat_count">Not Delivered</div>
+                  <div class="stat_count">Not Delivered</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Retained Customers -->
-    <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onRetainedCustomers">
+      <!-- Retained Customers -->
+      <div class="col-12 col-md-6 col-lg-3 oh-travel" t-on-click="onRetainedCustomers">
       <div class="oh-card"
            style="background-color: rgba(247, 42, 5, 0.829); border-radius: 8px; padding: 15px; color: white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
         <div class="oh-card-body text-center">
@@ -187,9 +189,9 @@
                  style="background:rgba(247, 42, 5, 0.829); border-radius: 50%; padding: 15px; margin-bottom: 10px;">
               <i class="fa fa-user" style="font-size: 36px; color: white;"></i>
             </div>
-            <div class="stat-content">
+              <div class="stat-content">
               <div class="stat-head"><t t-esc="state.retained_customer_count"/></div>
-              <div class="stat_count">Retained Customer</div>
+                  <div class="stat_count">Retained Customer</div>
             </div>
           </div>
         </div>

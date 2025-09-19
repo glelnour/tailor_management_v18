@@ -10,7 +10,6 @@ export class SaleDashboard extends Component {
         // Odoo services
         this.orm = useService("orm");
         this.action = useService("action");
-//        this.user = useService("user");
 
         // Reactive state
         this.state = useState({
@@ -56,8 +55,6 @@ export class SaleDashboard extends Component {
             this.state.from_date,
             this.state.to_date,
         ]);
-        console.log("\n\n==values==",values);
-        debugger;
         if (values) {
             Object.assign(this.state, values);
         }
@@ -66,9 +63,7 @@ export class SaleDashboard extends Component {
     /**
      * Trigger when date fields change.
      */
-    async onDateChange(ev) {
-        const field = ev.target.getAttribute("data-field");
-        this.state[field] = ev.target.value;
+     async onDateChange() {
         if (this.state.from_date && this.state.to_date) {
             await this.fetchData();
         }
