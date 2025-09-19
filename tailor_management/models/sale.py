@@ -67,7 +67,7 @@ class StockPicking(models.Model):
         res = super(StockPicking, self).button_validate()
         opportunity = self.sale_id.opportunity_id
         if opportunity and not opportunity.stage_id.is_won:
-            stage_id = self.env['crm.stage'].search[('is_won','=', True)]
+            stage_id = self.env['crm.stage'].search([('is_won','=', True)])
             opportunity.stage_id = stage_id.id
         return res
 
