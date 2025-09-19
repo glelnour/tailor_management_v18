@@ -71,4 +71,17 @@ class StockPicking(models.Model):
                 rec.set_scheduled_date = True
                 rec.scheduled_date = expected_delivery
 
+    @api.depends('move_ids.state', 'move_ids.date', 'move_type')
+    def _compute_scheduled_date(self):
+        for picking in self:
+            if picking.sale_id.opportunity_id.expected_delivery:
+                picking.scheduled_date = picking.sale_i.opportunity_id.expected_delivery
+            else:
+                moves_dates = picking.move_ids.filtered(lambda move: move.state not in ('done', 'cancel')).mapped(
+                    'date')
+                if picking.move_type == 'direct':
+                    picking.scheduled_date = min(moves_dates, default=picking.scheduled_date or fields.Datetime.now())
+                else:
+                    picking.scheduled_date = max(moves_dates, default=picking.scheduled_date or fields.Datetime.now())
+
 
