@@ -63,6 +63,14 @@ class StockPicking(models.Model):
 
     set_scheduled_date = fields.Boolean(compute='set_scheduled_date')
 
+    def button_validate(self):
+        res = super(StockPicking, self).button_validate()
+        opportunity = self.sale_id.opportunity_id
+        if opportunity and not opportunity.stage_id.is_won:
+            stage_id = self.env['crm.stage'].search[('is_won','=', True)]
+            opportunity.stage_id = stage_id.id
+        return res
+
     @api.depends('sale_id.opportunity_id.expected_delivery')
     def set_scheduled_date(self):
         for rec in self:
